@@ -1,0 +1,16 @@
+Index: linux-5.10.168/drivers/mtd/spi-nor/core.c
+===================================================================
+--- linux-5.10.168.orig/drivers/mtd/spi-nor/core.c
++++ linux-5.10.168/drivers/mtd/spi-nor/core.c
+@@ -2971,8 +2971,9 @@ static int spi_nor_init(struct spi_nor *
+ 		 * reboots (e.g., crashes). Warn the user (or hopefully, system
+ 		 * designer) that this is bad.
+ 		 */
+-		WARN_ONCE(nor->flags & SNOR_F_BROKEN_RESET,
+-			  "enabling reset hack; may not recover from unexpected reboots\n");
++		if(nor->flags & SNOR_F_BROKEN_RESET)
++		    dev_warn(nor->dev,
++			"Enabling reset hack; may not recover from unexpected reboots.\n");
+ 		nor->params->set_4byte_addr_mode(nor, true);
+ 	}
+ 

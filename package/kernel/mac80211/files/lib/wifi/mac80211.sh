@@ -167,9 +167,10 @@ detect_mac80211() {
 			dev_id="set wireless.radio${devidx}.macaddr=$(cat /sys/class/ieee80211/${dev}/macaddress)"
 		fi
 		
-		SSID="ROOter 2G"
-		SSID5G="ROOter 5G"
-		PASSW="rooter2017"
+		GATEWAY_ID=$(ip link show eth0 | awk '/ether/ {print $2}' | awk -F\: '{printf("%s%s%s%s%s",$2,$3,$4,$5,$6);}' | tr [a-z] [A-Z]);
+		SSID="Resolut-NAR-${GATEWAY_ID} 2G"
+		SSID5G="Resolut-NAR-${GATEWAY_ID} 5G"
+		PASSW="resolut2020"
 		if [ -e /etc/customwifi ]; then
 			I=0
 			while IFS=$'\n' read -r line
