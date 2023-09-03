@@ -167,7 +167,7 @@ detect_mac80211() {
 			dev_id="set wireless.radio${devidx}.macaddr=$(cat /sys/class/ieee80211/${dev}/macaddress)"
 		fi
 		
-		GATEWAY_ID=$(ip link show eth0 | awk '/ether/ {print $2}' | awk -F\: '{printf("%s%s%s%s%s",$2,$3,$4,$5,$6);}' | tr [a-z] [A-Z]);
+		GATEWAY_ID=$(ip link show eth0 | awk '/ether/ {print $2}' | awk -F\: '{printf("%s%s%s",$4,$5,$6);}' | tr [a-z] [A-Z]);
 		SSID="Resolut-NAR-${GATEWAY_ID} 2G"
 		SSID5G="Resolut-NAR-${GATEWAY_ID} 5G"
 		PASSW="resolut2020"
